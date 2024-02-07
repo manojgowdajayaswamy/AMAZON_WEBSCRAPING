@@ -1,0 +1,82 @@
+from bs4 import BeautifulSoup
+import requests
+import time
+import datetime
+
+URL = 'https://www.amazon.com/data-didnt-happen-behavior-therapist/dp/B0BH18VPW7/ref=sr_1_1?crid=HA4KAX8CNSJ4&keywords=data+t+shirt&qid=1707331367&sprefix=data+t+shirt%2Caps%2C157&sr=8-1'
+# headers = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36"}
+
+
+PAGE = requests.get(URL, headers = headers)
+
+Soup1 = BeautifulSoup(PAGE.content, 'html.parser')
+headers = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36", "Accept-Encoding":"gzip, deflate", "Accept":"text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8", "DNT":"1","Connection":"close", "Upgrade-Insecure-Requests":"1"}
+
+Soup2 = BeautifulSoup(Soup1.prettify(), 'html.parser')
+
+
+
+
+title = Soup2.find(id = 'productTitle').get_text()
+
+avg = title = Soup2.find(id = 'averageCustomerReviews_feature_div').get_text()
+
+print(title)
+print(avg)
+
+title = title.strip()
+avg = avg.strip()
+print(title)
+print(avg)
+
+import datetime
+today = datetime.date.today()
+print(today)
+
+import csv
+header = ['Title', 'Rating', 'Date']
+data = [title, avg, date]
+
+with open ("webscrapingamzdata.csv", 'w', newline ='', encoding='UTF8') as f:
+    writer = csv.writer(f)
+    writer.writerow(header)
+    writer.writerow(data)
+
+import pandas as pd
+df = pd.read_csv(r"C:\Users\manoj\webscrapingamzdata.csv")
+print(df)
+
+def check_rating():
+    URL = 'https://www.amazon.com/data-didnt-happen-behavior-therapist/dp/B0BH18VPW7/ref=sr_1_1?crid=HA4KAX8CNSJ4&keywords=data+t+shirt&qid=1707331367&sprefix=data+t+shirt%2Caps%2C157&sr=8-1'
+# headers = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36"}
+
+
+    PAGE = requests.get(URL, headers = headers)
+
+    Soup1 = BeautifulSoup(PAGE.content, 'html.parser')
+    headers = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36", "Accept-Encoding":"gzip, deflate", "Accept":"text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8", "DNT":"1","Connection":"close", "Upgrade-Insecure-Requests":"1"}
+
+    Soup2 = BeautifulSoup(Soup1.prettify(), 'html.parser')
+    title = Soup2.find(id = 'productTitle').get_text()
+
+    avg = title = Soup2.find(id = 'averageCustomerReviews_feature_div').get_text()
+    import datetime
+    today = datetime.date.today()
+    import csv
+    header = ['Title', 'Rating', 'Date']
+    data = [title, avg,date]
+
+    with open ("webscrapingamzdata.csv", 'a+', newline ='', encoding='UTF8') as f:
+        writer = csv.writer(f)
+        writer.writerow(data)
+    
+
+    
+
+while(True):
+    check_rating
+    time.sleep(5)
+
+import pandas as pd
+df = pd.read_csv(r"C:\Users\manoj\webscrapingamzdata.csv")
+print(df)
